@@ -1,7 +1,3 @@
-tensorflow
-keras
-pandas
-numpy
 pillow
 wandb
 h5py
