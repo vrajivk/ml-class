@@ -5,6 +5,7 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
+from keras.callbacks import EarlyStopping
 
 import os
 import wandb
@@ -64,7 +65,7 @@ model.fit_generator(datagen.flow(x_train, y_train,
                         epochs=config.epochs,
                         validation_data=(x_test, y_test),
                         workers=4,
-                        callbacks=[WandbKerasCallback(validation_data=x_test, labels=class_names)]
+                        callbacks=[WandbKerasCallback(validation_data=x_test, labels=class_names), EarlyStopping(monitor='val_acc', min_delta=0.001,patience=3, verbose=1)]
    )
 
 
