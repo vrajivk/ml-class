@@ -52,6 +52,7 @@ model.add(Dense(config.dense_layer_nodes, activation="relu"))
 model.add(Dropout(0.5))
 model.add(Dense(num_classes, activation="softmax"))
 
+print(model.summary())
 
 opt = keras.optimizers.SGD(lr=config.learn_rate)
 
