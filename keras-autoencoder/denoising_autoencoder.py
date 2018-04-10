@@ -43,9 +43,11 @@ model.add(Reshape((28, 28, 1), input_shape=(28,28)))
 model.add(Conv2D(32, (3,3), padding="same", activation='relu'))
 model.add(MaxPooling2D(2,2))
 # model.add(Dropout(0.3))
+model.add(Conv2D(1, (3,3), padding="same", activation='relu'))
 model.add(UpSampling2D())
-model.add(Flatten())
 model.add(Reshape((28, 28)))
+
+model.summary()
 model.compile(optimizer="adam", loss="mse")
 
 
