@@ -8,7 +8,7 @@ epochs:
    value: 100
 batch_size:
    desc: Size of each mini-batch
-   value: 32
+   value: 64
 learn_rate:
   value: 0.01
 layer_1_size:
