@@ -1,5 +1,6 @@
 from keras.layers import Input, Dense, Flatten, Reshape
 from keras.models import Model, Sequential
+from keras.callbacks import EarlyStopping
 
 from keras.datasets import mnist
 from keras.callbacks import Callback
@@ -10,7 +11,7 @@ from wandb.wandb_keras import WandbKerasCallback
 run = wandb.init()
 config = run.config
 
-config.encoding_dim = 32
+config.encoding_dim = 8
 config.epochs = 1000
 
 (x_train, _), (x_test, _) = mnist.load_data()
@@ -41,7 +42,8 @@ class Images(Callback):
 model.fit(x_train, x_train,
                 epochs=config.epochs,
                 validation_data=(x_test, x_test), 
-          callbacks=[Images(), WandbKerasCallback()])
+          callbacks=[Images(), WandbKerasCallback(),
+                     EarlyStopping(monitor="val_loss", min_delta=0.001, patience=3, verbose=1)])
 
 
 model.save('auto-small.h5')
