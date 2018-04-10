@@ -5,6 +5,7 @@ from keras.datasets import mnist
 import numpy as np
 import wandb
 from wandb.wandb_keras import WandbKerasCallback
+from keras.callbacks import EarlyStopping
 
 
 def add_noise(x_train, x_test):
@@ -64,7 +65,11 @@ model.fit(
     x_train,
     epochs=config.epochs,
     validation_data=(x_test_noisy, x_test),
-    callbacks=[Images(), WandbKerasCallback()],
+    callbacks=[
+        Images(),
+        WandbKerasCallback(),
+        EarlyStopping(monitor="val_loss", min_delta=0.001, patience=3, verbose=1),
+    ],
 )
 
 
