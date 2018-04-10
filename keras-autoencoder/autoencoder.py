@@ -21,7 +21,7 @@ x_test = x_test.astype('float32') / 255.
 
 model = Sequential()
 model.add(Flatten(input_shape=(28,28)))
-model.add(Dense(config.encoding_dim, activation='relu'))
+model.add(Dense(config.encoding_dim, activation='linear'))
 model.add(Dense(28*28, activation='sigmoid'))
 model.add(Reshape((28,28)))
 model.compile(optimizer='adam', loss='mse')
