@@ -1,4 +1,4 @@
-from keras.layers import Input, Dense, Flatten, Reshape
+from keras.layers import Input, Dense, Flatten, Reshape, Conv2D, MaxPooling2D, Dropout, UpSampling2D
 from keras.models import Model, Sequential
 from keras.callbacks import Callback
 from keras.datasets import mnist
@@ -37,9 +37,13 @@ x_test = x_test.astype("float32") / 255.
 
 
 model = Sequential()
-model.add(Flatten(input_shape=(28, 28)))
-model.add(Dense(config.encoding_dim, activation="relu"))
-model.add(Dense(784, activation="sigmoid"))
+
+model.add(Reshape((28, 28, 1), input_shape=(28,28)))
+#model.add(Dropout(0.4))
+model.add(Conv2D(32, (3,3), padding="same", activation='relu'))
+model.add(MaxPooling2D(2,2))
+# model.add(Dropout(0.3))
+model.add(UpSampling2D())
 model.add(Reshape((28, 28)))
 model.compile(optimizer="adam", loss="mse")
 
